@@ -25,6 +25,7 @@ const ProductoSchema = Schema({
         ref: 'Categoria',
         required: true
     },
+    img: { type: String },
     descripcion: { type: String },
     disponible: { type: Boolean, default: true } 
 });
