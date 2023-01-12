@@ -9,4 +9,4 @@ router.post("/user", CUser.postUser);
 router.put("/user/:id", CUser.putUser);
 router.delete("/user/:id", CUser.deleteUser);
 
-export default router
+export { router }
