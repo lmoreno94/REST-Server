@@ -31,7 +31,10 @@ services:
       - "80:80"
     depends_on:
       - postgres
+    volumes: 
+      - pgadminData:/var/lib/pgadmin/ 
 
 volumes:
   postgresData:
+  pgadminData:
   .:
