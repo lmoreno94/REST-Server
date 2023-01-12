@@ -1,21 +1,29 @@
 import { Request, Response } from "express";
+import SUser from '../services/User';
 
-export const getUser = (req: Request, res: Response) => {
+const getUser = async(req: Request, res: Response) => {
+    await SUser.getUsers();
     res.send('Control Get All Users');
 }
 
-export const getUsers = (req: Request, res: Response) => {
+const getUsers = async(req: Request, res: Response) => {
+    await SUser.getUsers();
     res.send('Control Get One User');
 }
 
-export const postUser = (req: Request, res: Response) => {
+const postUser = async(req: Request, res: Response) => {
+    await SUser.postUser();
     res.send('Control Post User');
 }
 
-export const putUser = (req: Request, res: Response) => {
+const putUser = async(req: Request, res: Response) => {
+    await SUser.putUser();
     res.send('Control Put User');
 }
 
-export const deleteUser = (req: Request, res: Response) => {
+const deleteUser = async(req: Request, res: Response) => {
+    await SUser.deleteUser();
     res.send('Control Delete User');
 }
+
+export default { getUser, getUsers, postUser, putUser, deleteUser }
