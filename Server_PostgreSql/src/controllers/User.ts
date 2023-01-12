@@ -1,29 +1,50 @@
 import { Request, Response } from "express";
 import SUser from '../services/User';
+import { handleHttp } from '../utils/error.handler';
 
 const getUser = async(req: Request, res: Response) => {
-    await SUser.getUsers();
-    res.send('Control Get All Users');
+    try {
+        const responseUser = await SUser.getUsers();
+        res.send(responseUser);
+    } catch (error) {
+        handleHttp(res, "ERROR_GET_USER", error);
+    }
 }
 
 const getUsers = async(req: Request, res: Response) => {
-    await SUser.getUsers();
-    res.send('Control Get One User');
+    try {
+        const responseUser = await SUser.getUsers();
+        res.send(responseUser);
+    } catch (error) {
+        handleHttp(res, "ERROR_GET_USERS", error);
+    }
 }
 
 const postUser = async(req: Request, res: Response) => {
-    await SUser.postUser();
-    res.send('Control Post User');
+    try {
+        const responseUser = await SUser.postUser();
+        res.send(responseUser);
+    } catch (error) {
+        handleHttp(res, "ERROR_POST_USER", error);
+    }
 }
 
 const putUser = async(req: Request, res: Response) => {
-    await SUser.putUser();
-    res.send('Control Put User');
+    try {
+        const responseUser = await SUser.putUser();
+        res.send(responseUser);
+    } catch (error) {
+        handleHttp(res, "ERROR_PUT_USER", error);
+    }
 }
 
 const deleteUser = async(req: Request, res: Response) => {
-    await SUser.deleteUser();
-    res.send('Control Delete User');
+    try {
+        const responseUser = await SUser.deleteUser();
+        res.send(responseUser);
+    } catch (error) {
+        handleHttp(res, "ERROR_DELETE_USER", error);
+    }
 }
 
 export default { getUser, getUsers, postUser, putUser, deleteUser }
