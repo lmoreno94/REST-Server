@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/app.ts",
-    "start": "ts-node build/app.js",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "start": "node build/index.js",
     "build": "tsc"
   },
   "keywords": [],
@@ -24,6 +24,7 @@
     "dotenv": "16.0.3",
     "express": "4.18.2",
     "morgan": "1.10.0",
+    "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.11"
   }
