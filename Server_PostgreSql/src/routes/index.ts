@@ -10,7 +10,7 @@ const cleanFileName = (fileName: string) => {
 }
 
 readdirSync(PATH_ROUTER).filter(( fileName ) => {
-    const cleanName = cleanFileName(fileName)
+    const cleanName = cleanFileName(fileName);
     if( cleanName !== "index" ){
         import(`./${cleanName}`).then((moduleRouter) => {
             console.log(`Loading routes...... /${cleanName}`);

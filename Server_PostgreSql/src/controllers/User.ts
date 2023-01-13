@@ -4,7 +4,7 @@ import { handleHttp } from '../utils/error.handler';
 
 const getUser = async(req: Request, res: Response) => {
     try {
-        const responseUser = await SUser.getUsers();
+        const responseUser = await SUser.getUser();
         res.send(responseUser);
     } catch (error) {
         handleHttp(res, "ERROR_GET_USER", error);
@@ -20,9 +20,9 @@ const getUsers = async(req: Request, res: Response) => {
     }
 }
 
-const postUser = async(req: Request, res: Response) => {
+const postUser = async({ body }: Request, res: Response) => {
     try {
-        const responseUser = await SUser.postUser();
+        const responseUser = await SUser.postUser(body);
         res.send(responseUser);
     } catch (error) {
         handleHttp(res, "ERROR_POST_USER", error);
