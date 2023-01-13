@@ -3,11 +3,15 @@ import { User } from '../entities/User';
 
 const getUser = async(id: number) => {
     const responseGet = await User.findOneBy({ id });
-    return responseGet; 
+    return responseGet;
 }
 
 const getUsers = async() => {
-    const responseGet = await User.find();
+    const responseGet = await User.find({
+        where: {
+            active: true
+        }
+    });
     return responseGet;
 }
 
@@ -25,8 +29,9 @@ const putUser = async(id: number, form: IUser) => {
     return responsePut
 }
 
-const deleteUser = async() => {
-    console.log("Service Delete User");
+const deleteUser = async(id: number) => {
+    const responseDelete = await User.update({ id }, { active: false });
+    return responseDelete
 }
 
 export default { getUsers, getUser, postUser, putUser, deleteUser }

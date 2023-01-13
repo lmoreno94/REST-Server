@@ -44,9 +44,14 @@ const putUser = async({ params, body }: Request, res: Response) => {
     }
 }
 
-const deleteUser = async(req: Request, res: Response) => {
+const deleteUser = async({ params }: Request, res: Response) => {
     try {
-        const responseUser = await SUser.deleteUser();
+        const { id } = params;
+        const responseGetUser = await SUser.getUser(Number(id));
+        if( !responseGetUser ){
+            return handleHttp(res, "ERROR_ID_DELETE_USER", 'Not Exist');
+        }
+        const responseUser = await SUser.deleteUser(Number(id));
         res.send(responseUser);
     } catch (error) {
         handleHttp(res, "ERROR_DELETE_USER", error);
