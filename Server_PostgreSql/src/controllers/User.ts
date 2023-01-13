@@ -2,16 +2,17 @@ import { Request, Response } from "express";
 import SUser from '../services/User';
 import { handleHttp } from '../utils/error.handler';
 
-const getUser = async(req: Request, res: Response) => {
+const getUser = async({ params }: Request, res: Response) => {
     try {
-        const responseUser = await SUser.getUser();
+        const { id } = params;
+        const responseUser = await SUser.getUser(Number(id));
         res.send(responseUser);
     } catch (error) {
         handleHttp(res, "ERROR_GET_USER", error);
     }
 }
 
-const getUsers = async(req: Request, res: Response) => {
+const getUsers = async(_req: Request, res: Response) => {
     try {
         const responseUser = await SUser.getUsers();
         res.send(responseUser);
@@ -29,9 +30,14 @@ const postUser = async({ body }: Request, res: Response) => {
     }
 }
 
-const putUser = async(req: Request, res: Response) => {
+const putUser = async({ params, body }: Request, res: Response) => {
     try {
-        const responseUser = await SUser.putUser();
+        const { id } = params;
+        const responseGetUser = await SUser.getUser(Number(id));
+        if( !responseGetUser ){
+            return handleHttp(res, "ERROR_ID_UPDATE_USER", 'Not Exist');
+        }
+        const responseUser = await SUser.putUser(Number(id), body);
         res.send(responseUser);
     } catch (error) {
         handleHttp(res, "ERROR_PUT_USER", error);
