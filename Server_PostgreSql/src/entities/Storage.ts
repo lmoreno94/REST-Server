@@ -1,10 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, Generated } from "typeorm";
 import { User } from './User';
 
 @Entity()
 export class Storage extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id: number;
+    @Generated("uuid")
+    id: string;
 
     @Column()
     fileName: string;

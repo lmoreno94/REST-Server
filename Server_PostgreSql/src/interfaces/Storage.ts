@@ -1,5 +1,7 @@
-export interface Storage {
+import { User } from "../entities/User";
+
+export interface IStorage {
     fileName: string;
     path: string;
-    idUser: string;
+    user: User
 }
