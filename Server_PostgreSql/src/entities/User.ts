@@ -13,6 +13,19 @@ export class User extends BaseEntity{
     lastName: string;
 
     @Column({
+        unique: true
+    })
+    user: string;
+
+    @Column({
+        unique: true
+    })
+    email: string;
+
+    @Column()
+    password: string
+
+    @Column({
         default: true
     })
     active: boolean;
