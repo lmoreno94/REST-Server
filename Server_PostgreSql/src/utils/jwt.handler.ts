@@ -1,8 +1,10 @@
+import "dotenv/config";
 import { sign, verify } from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.SECRET_SEED_KEY || '';
+const JWT_SECRET = process.env.SECRET_SEED_KEY || 'asgfqaerghKJDAO972681(&#/%#khfsdf';
 
-const generareToken = async( id:string ) => { 
+const generareToken = async( id:number ) => { 
+    console.log("$$$$$$$$  ID $$$$$$$$ ", id);
     const jwt = sign({ id }, JWT_SECRET, {
         expiresIn: '2h'
     })

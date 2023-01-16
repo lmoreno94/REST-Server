@@ -9,7 +9,7 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use( express.static('public') );
 app.use( express.urlencoded({
-    extended: true
+    extended: true 
 }))
 app.use(express.json());
 

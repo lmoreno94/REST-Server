@@ -8,7 +8,9 @@ import { handleHttp } from "../utils/error.handler";
 const getFile = async (req: RequestExt, res: Response) => {
   try {
     const { user, file } = req;
-    const responseGetUser = await SUser.getUser(Number(user));
+    console.log(user);
+    
+    const responseGetUser = await SUser.getUser(Number(user?.id));
     if( !responseGetUser ){
         return handleHttp(res, "ERROR_ID_USER", 'Not Exist');
     }
@@ -18,6 +20,8 @@ const getFile = async (req: RequestExt, res: Response) => {
       user: responseGetUser,
       path: `${file?.path}`,
     };
+
+    console.log(dataToRegister);
     const response = await registerUpload(dataToRegister);
     res.send(response);
   } catch (e) {
