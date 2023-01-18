@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   api:
+    container_name: GraphQL_Server
     build: 
       context: .
       dockerfile: Dockerfile
@@ -11,6 +12,7 @@ services:
       - .:/app
 
   mysql:
+    container_name: MySql_DB
     image: mysql:8.0.32
     cap_add:
       - SYS_NICE
@@ -18,18 +20,25 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root123456
       - MYSQL_DATABASE=graphql_typeorm
+      - MYSQL_USER=lm 
+      - MYSQL_PASSWORD=lm123456
+      - MYSQL_ROOT_PASSWORD=root123456
     volumes:
       - ./sql_data/db:/var/lib/mysql
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
  
   phpmyadmin:
-    image: phpmyadmin:5.2.0-fpm-alpine
+    container_name: PhpMyAdmin
+    image: phpmyadmin/phpmyadmin
     environment:
-      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
     ports:
-      - "8080:80"
+      - "8081:80"
+    expose:
+      - "80"
+    depends_on:
+      - mysql
     volumes: 
       - phpMyAdminData:/var/www/html/libraries
       - phpMyAdminThemes:/var/www/html/themes
