@@ -35,8 +35,6 @@ services:
       - PMA_HOST=mysql
     ports:
       - "8081:80"
-    expose:
-      - "80"
     depends_on:
       - mysql
     volumes: 

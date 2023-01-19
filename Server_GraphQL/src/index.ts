@@ -1,3 +1,10 @@
-import "reflect-metadata"
+import "reflect-metadata";
+import app from "./app";
 
-console.log('hhhhhhhhhh');
+const PORT = 3000;
+
+(async() => {
+    app.listen(PORT, () => {
+        console.log(`Server on port ${PORT}`);
+    })
+})();
