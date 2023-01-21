@@ -40,6 +40,18 @@ services:
       - phpMyAdminData:/var/www/html/libraries
       - phpMyAdminThemes:/var/www/html/themes
 
+  # minio:
+  #   image: minio/minio
+  #   container_name: Minio
+  #   command: server /data
+  #   ports:
+  #     - 9000:9000
+  #   environment:
+  #     MINIO_ROOT_USER: minio
+  #     MINIO_ROOT_PASSWORD: minio123
+  #   volumes:
+  #     - minio-data:/data
+
   api:
     container_name: GraphQL_Server
     build: 
@@ -62,4 +74,5 @@ networks:
 volumes:
   phpMyAdminData:
   phpMyAdminThemes:
+  minio-data:
   .:
