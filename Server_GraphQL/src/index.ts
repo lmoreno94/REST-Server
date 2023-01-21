@@ -2,7 +2,7 @@ import "reflect-metadata";
 import app from "./app";
 import { AppDataSource } from "./db/connect";
 
-const PORT = 3001;
+const PORT = 3000;
 
 (async() => {
     await AppDataSource.initialize().then(() => {

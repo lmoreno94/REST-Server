@@ -2,8 +2,7 @@ version: "3.9"
 services:
   mysql:
     container_name: MySql_DB
-    image: mysql:8.0.32
-    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:latest
     cap_add:
       - SYS_NICE
     restart: always
@@ -18,14 +17,19 @@ services:
       - MYSQL_ROOT_PASSWORD=root123456
       - MYSQL_ROOT_HOST=mysql
     volumes:
-      - ./sql_data/db:/var/lib/mysql
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
- 
+      - ./sql_data/db:/var/lib/mysql
+    command: --default_authentication_plugin=mysql_native_password
+
   phpmyadmin:
     container_name: PhpMyAdmin
     image: phpmyadmin/phpmyadmin
     environment:
+      - PMA_ARBITRARY=1
       - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root123456
+      - PMA_PORT=3306
     ports:
       - "8081:80"
     depends_on:
