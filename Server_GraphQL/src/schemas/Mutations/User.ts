@@ -1,4 +1,4 @@
-import { GraphQLString } from 'graphql';
+import { GraphQLBoolean, GraphQLString, GraphQLID } from 'graphql';
 import { Users } from '../../entities/User';
 import { TUser } from '../TypeDefs/User';
 import bcrypt from 'bcryptjs';
@@ -22,5 +22,17 @@ export const CREATE_USER = {
         })
 
         return {...args, id: result.identifiers[0].id, password: encryptPassword}
+    }
+}
+
+export const DELETE_USER = {
+    type: GraphQLBoolean,
+    args: {
+        id: { type: GraphQLID }
+    },
+    async resolve(_:any, { id }: any){
+        const result = await Users.delete(id);
+        if( result.affected === 1 ) return true;
+        return false;
     }
 }
