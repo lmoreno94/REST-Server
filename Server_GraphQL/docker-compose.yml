@@ -9,7 +9,7 @@ services:
     networks:
       - app-network
     ports:
-      - "3306:3306"
+      - "${MYSQL_ROOT_PORT}:3306"
     env_file:
       - .env
     environment:
@@ -33,9 +33,9 @@ services:
       - PMA_HOST=${PMA_HOST}
       - PMA_USER=${PMA_USER}
       - PMA_PASSWORD=${PMA_PASSWORD}
-      - PMA_PORT=${PMA_PORT}
+      - PMA_PORT=${PMA_CONNECT_PORT}
     ports:
-      - "8080:80"
+      - "${PMA_ROOT_PORT}:80"
     depends_on:
       - mysql
     networks:
@@ -43,18 +43,6 @@ services:
     volumes: 
       - phpMyAdminData:/var/www/html/libraries
       - phpMyAdminThemes:/var/www/html/themes
-
-  minio:
-    image: minio/minio
-    container_name: Minio
-    command: server /data
-    ports:
-      - 9000:9000
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-    volumes:
-      - minio-data:/data
 
   api:
     container_name: GraphQL_Server
@@ -65,11 +53,11 @@ services:
     networks:
       - app-network
     ports:
-      - "3001:3001"
+      - "${API_PORT}:3001"
     env_file:
       - .env
     environment:
-      - PORT=3001
+      - PORT=${API_PORT}
     depends_on:
       - mysql
     volumes: 
@@ -82,5 +70,4 @@ networks:
 volumes:
   phpMyAdminData:
   phpMyAdminThemes:
-  minio-data:
   .:

@@ -1,6 +1,12 @@
 import { DataSource } from "typeorm";
 import 'dotenv/config';
 
+const PORT = Number(process.env.MYSQL_ROOT_PORT);
+const HOST = process.env.MYSQL_ROOT_HOST;
+const USER = process.env.PMA_USER;
+const PASSWORD = process.env.PMA_PASSWORD;
+const DATABASE = process.env.MYSQL_DATABASE;
+
 const cleanFileName = (fileName: string) => {
     const file = fileName.split("/db").shift();
     return file;
@@ -8,11 +14,11 @@ const cleanFileName = (fileName: string) => {
 
 export const AppDataSource = new DataSource({
     type: 'mysql',
-    host: process.env.MYSQL_ROOT_HOST,
-    port: Number(process.env.MYSQL_PORT_API),
-    username: process.env.PMA_USER,
-    password: process.env.PMA_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
+    host: HOST,
+    port: PORT,
+    username: USER,
+    password: PASSWORD,
+    database: DATABASE,
     synchronize: true,
     logging: true,
     entities: [

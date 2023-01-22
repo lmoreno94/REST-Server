@@ -3,7 +3,7 @@ import "reflect-metadata";
 import app from "./app";
 import { AppDataSource } from "./db/connect";
 
-const PORT = process.env.PORT;
+const PORT = process.env.API_PORT;
 
 (async() => {
     await AppDataSource.initialize().then(() => {
