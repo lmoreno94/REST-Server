@@ -10,12 +10,14 @@ services:
       - app-network
     ports:
       - "3306:3306"
+    env_file:
+      - .env
     environment:
-      - MYSQL_DATABASE=graphql_typeorm
-      - MYSQL_USER=lm 
-      - MYSQL_PASSWORD=lm123456
-      - MYSQL_ROOT_PASSWORD=root123456
-      - MYSQL_ROOT_HOST=mysql
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_DATABASE}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
     volumes:
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./sql_data/db:/var/lib/mysql
@@ -24,14 +26,16 @@ services:
   phpmyadmin:
     container_name: PhpMyAdmin
     image: phpmyadmin/phpmyadmin
+    env_file:
+      - .env
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=root123456
-      - PMA_PORT=3306
+      - PMA_HOST=${PMA_HOST}
+      - PMA_USER=${PMA_USER}
+      - PMA_PASSWORD=${PMA_PASSWORD}
+      - PMA_PORT=${PMA_PORT}
     ports:
-      - "8081:80"
+      - "8080:80"
     depends_on:
       - mysql
     networks:
@@ -40,17 +44,17 @@ services:
       - phpMyAdminData:/var/www/html/libraries
       - phpMyAdminThemes:/var/www/html/themes
 
-  # minio:
-  #   image: minio/minio
-  #   container_name: Minio
-  #   command: server /data
-  #   ports:
-  #     - 9000:9000
-  #   environment:
-  #     MINIO_ROOT_USER: minio
-  #     MINIO_ROOT_PASSWORD: minio123
-  #   volumes:
-  #     - minio-data:/data
+  minio:
+    image: minio/minio
+    container_name: Minio
+    command: server /data
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio-data:/data
 
   api:
     container_name: GraphQL_Server
@@ -61,7 +65,11 @@ services:
     networks:
       - app-network
     ports:
-      - "3000:3000"
+      - "3001:3001"
+    env_file:
+      - .env
+    environment:
+      - PORT=3001
     depends_on:
       - mysql
     volumes: 

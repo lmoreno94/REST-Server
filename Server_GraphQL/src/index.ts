@@ -1,8 +1,9 @@
+import 'dotenv/config';
 import "reflect-metadata";
 import app from "./app";
 import { AppDataSource } from "./db/connect";
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 (async() => {
     await AppDataSource.initialize().then(() => {

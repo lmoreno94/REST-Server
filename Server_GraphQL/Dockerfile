@@ -8,6 +8,4 @@ COPY tsconfig.json ./
 RUN npm install
 RUN npm i -d ts-node-dev
 
-EXPOSE 3000
-
 CMD ["npm","run dev"]

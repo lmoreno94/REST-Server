@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import 'dotenv/config';
 
 const cleanFileName = (fileName: string) => {
     const file = fileName.split("/db").shift();
@@ -6,12 +7,12 @@ const cleanFileName = (fileName: string) => {
 }
 
 export const AppDataSource = new DataSource({
-    type: "mysql",
-    host: "mysql",
-    port: 3306,
-    username: "root",
-    password: "root123456",
-    database: "graphql_typeorm",
+    type: 'mysql',
+    host: process.env.MYSQL_ROOT_HOST,
+    port: Number(process.env.MYSQL_PORT_API),
+    username: process.env.PMA_USER,
+    password: process.env.PMA_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
     synchronize: true,
     logging: true,
     entities: [
