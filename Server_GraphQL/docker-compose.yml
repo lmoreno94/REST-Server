@@ -57,7 +57,8 @@ services:
     env_file:
       - .env
     environment:
-      - PORT=${API_PORT}
+      - API_PORT=${API_PORT}
+      - SECRET_SEED_KEY=${SECRET_SEED_KEY}
     depends_on:
       - mysql
     volumes: 
