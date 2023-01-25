@@ -1,10 +1,12 @@
 import { GraphQLString, GraphQLInputObjectType } from 'graphql';
 import { Users } from '../../entities/User';
 import { encrypt } from "../../utils/bcrypt.handler";
-import { TMessage } from '../TypeDefs/Message';
+import { generateToken } from "../../utils/jwt.handler";
+import { T_JWT_Message } from '../TypeDefs/Message';
+
 
 export const REGISTER = {
-    type: TMessage,
+    type: T_JWT_Message,
     args: {
         input: { 
             type: new GraphQLInputObjectType({
@@ -21,7 +23,7 @@ export const REGISTER = {
         const userFound = await Users.findOneBy({ email: input.email });
         if(userFound) return {
             ok: false,
-            msg: "USER_EXIST"
+            msg: "USER_EXIST",
         }
 
         const encryptPassword = await encrypt(input.password);
@@ -31,14 +33,17 @@ export const REGISTER = {
             password: encryptPassword
         })
 
+        const jwt = await generateToken(result.identifiers[0].id);
+
         if(result) return {
             ok: true,
-            msg: "REGISTER_USER_OK"
+            msg: "REGISTER_USER_OK",
+            token: jwt
         }
 
         return {
             ok: false,
-            msg: "ERROR_REGISTER_USER"
+            msg: "ERROR_REGISTER_USER",
         }
     }
 }

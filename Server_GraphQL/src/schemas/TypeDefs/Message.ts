@@ -7,3 +7,12 @@ export const TMessage = new GraphQLObjectType({
         msg: { type: GraphQLString }
     }
 })
+
+export const T_JWT_Message = new GraphQLObjectType({
+    name: 'JWT_Message',
+    fields: {
+        ok: { type: GraphQLBoolean },
+        msg: { type: GraphQLString },
+        token: { type: GraphQLString }
+    }
+})

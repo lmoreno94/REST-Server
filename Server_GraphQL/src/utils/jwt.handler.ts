@@ -3,7 +3,7 @@ import { sign, verify } from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.SECRET_SEED_KEY || '';
 
-const generareToken = async( id:number ) => { 
+const generateToken = async( id:number ) => { 
     const jwt = sign({ id }, JWT_SECRET, {
         expiresIn: '1h'
     })
@@ -15,4 +15,4 @@ const verifyToken = (jwt: string) => {
     return isOk
 }
 
-export { generareToken, verifyToken }
+export { generateToken, verifyToken }
