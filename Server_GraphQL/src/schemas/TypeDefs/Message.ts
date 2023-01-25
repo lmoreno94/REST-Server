@@ -8,8 +8,8 @@ export const TMessage = new GraphQLObjectType({
     }
 })
 
-export const T_JWT_Message = new GraphQLObjectType({
-    name: 'JWT_Message',
+export const T_AUTH_MESSAGE = new GraphQLObjectType({
+    name: 'AUTH_MESSAGE',
     fields: {
         ok: { type: GraphQLBoolean },
         msg: { type: GraphQLString },
