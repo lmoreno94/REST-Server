@@ -9,16 +9,18 @@ export const CREATE_USER = {
     args: {
         name: { type: GraphQLString },
         user: { type: GraphQLString },
+        email: { type: GraphQLString },
         password: { type: GraphQLString }
     },
     async resolve(_: any, args: any){
-        const { name, user, password }= args;
+        const { name, user, password, email }= args;
 
         const encryptPassword = await encrypt(password);
 
         const result = await Users.insert({
             name,
             user,
+            email,
             password: encryptPassword
         })
 
