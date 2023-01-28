@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { Posts } from './Post';
 @Entity()
 export class Users extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     @Generated("uuid")
     id: string;
 
@@ -34,6 +34,6 @@ export class Users extends BaseEntity {
     @CreateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @OneToMany(() => Posts, (post: Posts) => post.author)
-    posts: Posts[];
+    @OneToMany(() => Posts, post => post.user)
+    post: Promise<Posts[]>;
 }
