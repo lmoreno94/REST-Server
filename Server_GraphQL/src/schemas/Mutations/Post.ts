@@ -2,6 +2,7 @@ import { GraphQLBoolean, GraphQLString, GraphQLID, GraphQLInputObjectType } from
 import { Posts } from '../../entities/Post';
 import { TPost } from '../TypeDefs/Post';
 import { TMessage } from '../TypeDefs/Message';
+import { Users } from '../../entities/User';
 
 export const CREATE_POST = {
     type: TPost,
@@ -9,15 +10,22 @@ export const CREATE_POST = {
         title: { type: GraphQLString },
         body: { type: GraphQLString },
     },
-    async resolve(_: any, args: any){
+    async resolve(_: any, args: any, { user }: any){
+        if (!user) throw new Error("You must be logged in to do that");
+
         const { title, body }= args;
 
+        const userFound = await Users.findOneBy({ id: user.id })
+        if (!userFound) throw new Error("Unauthorized");
 
-        const result = await Posts.insert({
-            title, body
-        })
+        const post = new Posts();
+        post.title = title;
+        post.body = body; 
+        post.user = user.id
 
-        return {...args, id: result.identifiers[0].id, title}
+        const result = await Posts.save(post)
+
+        return {...result}
     }
 }
 
@@ -43,6 +51,7 @@ export const UPDATE_POST = {
                 fields: {
                     title: { type: GraphQLString },
                     body: { type: GraphQLString },
+                    author: { type: GraphQLID }
                 }
             })
          }

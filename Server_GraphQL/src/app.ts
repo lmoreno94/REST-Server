@@ -2,9 +2,11 @@ import express from "express";
 import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import { schema } from './schemas'
+import { authenticate } from "./middleware/auth";
 
 const app = express();
 
+app.use(authenticate);
 app.use(cors());
 app.use( express.static('public') );
 app.use( express.urlencoded({
@@ -19,3 +21,4 @@ app.use('/graphql', graphqlHTTP({
 // app.use(router);
 
 export default app;
+
