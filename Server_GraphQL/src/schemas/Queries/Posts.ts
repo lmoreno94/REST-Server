@@ -4,8 +4,8 @@ import { GraphQLList, GraphQLID } from 'graphql';
 
 export const GET_ALL_POST = {
     type: new GraphQLList(TPost),
-    async resolve(){
-        const result = await Posts.find();
+    resolve: async (_: any, __: any, { user }: any) => {
+        const result = await Posts.find({ where: { user: user.id }});
         return result;
     }
 }
