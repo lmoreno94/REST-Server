@@ -1,17 +1,23 @@
-import { TPost } from '../TypeDefs/Post';
+import { TPostMutation, TPostQuery } from '../TypeDefs/Post';
 import { Posts } from '../../entities/Post';
 import { GraphQLList, GraphQLID } from 'graphql';
 
 export const GET_ALL_POST = {
-    type: new GraphQLList(TPost),
+    type: new GraphQLList(TPostQuery),
     resolve: async (_: any, __: any, { user }: any) => {
-        const result = await Posts.find({ where: { user: user.id }});
+        const result = await Posts.find({
+            where: {
+                user: {
+                    id: user.id
+                }
+            }
+        });
         return result;
     }
 }
 
 export const GET_ONE_POST = {
-    type: TPost,
+    type: TPostMutation,
     args: {
         id: { type: GraphQLID }
     },

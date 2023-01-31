@@ -1,11 +1,11 @@
 import { GraphQLBoolean, GraphQLString, GraphQLID, GraphQLInputObjectType } from 'graphql';
 import { Posts } from '../../entities/Post';
-import { TPost } from '../TypeDefs/Post';
+import { TPostMutation } from '../TypeDefs/Post';
 import { TMessage } from '../TypeDefs/Message';
 import { Users } from '../../entities/User';
 
 export const CREATE_POST = {
-    type: TPost,
+    type: TPostMutation,
     args: {
         title: { type: GraphQLString },
         body: { type: GraphQLString },
