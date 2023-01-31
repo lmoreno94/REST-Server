@@ -1,4 +1,4 @@
-import { TPostMutation, TPostQuery } from '../TypeDefs/Post';
+import { TPostQuery } from '../TypeDefs/Post';
 import { Posts } from '../../entities/Post';
 import { GraphQLList, GraphQLID } from 'graphql';
 
@@ -17,12 +17,17 @@ export const GET_ALL_POST = {
 }
 
 export const GET_ONE_POST = {
-    type: TPostMutation,
+    type: TPostQuery,
     args: {
         id: { type: GraphQLID }
     },
-    async resolve(_: any, args: any){
-        const result = await Posts.findOneBy({ id: args.id });
+    async resolve(_: any, args: any, { user }: any){
+        const result = await Posts.findOneBy({ 
+            id: args.id,
+            user: {
+                id: user.id
+            }
+        });
         return result;
     }
 }
