@@ -3,7 +3,7 @@ import { Users } from '../../entities/User';
 import { TUser } from './User';
 
 export const TPostMutation = new GraphQLObjectType({
-    name: 'Posts Type Mutation',
+    name: 'PostsTypeMutation',
     fields: {
         id: { type: GraphQLID },
         title: { type: GraphQLString },
@@ -18,7 +18,7 @@ export const TPostMutation = new GraphQLObjectType({
 });
 
 export const TPostQuery = new GraphQLObjectType({
-    name: 'Posts Type Query',
+    name: 'PostsTypeQuery',
     fields: {
         id: { type: GraphQLID },
         title: { type: GraphQLString },
